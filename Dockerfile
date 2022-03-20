@@ -1,3 +1,11 @@
-FROM mrismanaziz/man-userbot:slim-buster
+FROM mrismanaziz/man-userbot:buster
 
-CMD [ "bash", "start" ]
+RUN git clone -b Man-Userbot https://github.com/cassabisnis/Man-Userbot /home/manuserbot/ \
+    && chmod 777 /home/manuserbot \
+    && mkdir /home/manuserbot/bin/
+
+COPY ./sample_config.env ./config.env* /home/manuserbot/
+
+WORKDIR /home/manuserbot/
+
+CMD ["python3", "-m", "userbot"]
